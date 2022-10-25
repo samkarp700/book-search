@@ -2,8 +2,10 @@ const { User, Book } = require('../models');
 
 const resolvers = { 
     Query: {
-        books: async () => {
-            return Book.find().sort({ savedAt: -1 });
+        //pass placeholder parameter to access username argument
+        books: async (parent, { username }) => {
+            const params = username ? { username } : {};
+            return Book.find(params).sort({ savedAt: -1 });
         }
     }
 };
