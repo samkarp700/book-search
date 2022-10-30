@@ -9,16 +9,19 @@ const path = require('path');
 const db = require('./config/connection');
 //replace routes ? ****
 const routes = require('./routes');
+const { authMiddleware } = require('./utils/auth');
+const { NoFragmentCyclesRule } = require('graphql');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 //create a new apollo server
 const server = new ApolloServer({
   typeDefs, 
-  resolvers
+  resolvers, 
+  context: authMiddleware
 });
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 const startApolloServer = async(typeDefs, resolvers) => {
