@@ -56,7 +56,7 @@ const resolvers = {
 
             return { token, user };
         }, 
-        addBook: async(parent, args, context) => {
+        saveBook: async(parent, args, context) => {
             if (context.user) {
                 const book = await Book.create({ ...args, username: context.user.username });
 
@@ -69,6 +69,15 @@ const resolvers = {
             }
 
             throw new AuthenticationError('You need to be logged in!');
+        }, 
+
+        //need to finish this one
+        removeBook: async(parent, args, context) => {
+            if (context.user) {
+                const book = await Book.delete({ ...args, username: context.user.username });
+
+                await user.findByIdAndUpdate
+            }
         }
     }
 };
