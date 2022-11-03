@@ -43,7 +43,7 @@ const resolvers = {
             if (context.user) {
                 const updateSaveBook = await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $push: { savedBooks: input } },
+                    { $addToSet: { savedBooks: input } },
                     { new: true, runValidators: true }
                 );
                 return updateSaveBook;
@@ -52,7 +52,7 @@ const resolvers = {
                 throw new AuthenticationError('You need to be loggin in.');
         },
 
-        //need to finish this one
+        
         removeBook: async(parent, { bookId }, context) => {
             if (context.user) {
                 const updateSaveBook = await User.findOneAndUpdate(
