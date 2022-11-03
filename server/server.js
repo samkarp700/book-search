@@ -7,10 +7,8 @@ const { typeDefs, resolvers } = require('./schemas');
 
 const path = require('path');
 const db = require('./config/connection');
-//replace routes ? ****
-const routes = require('./routes');
 const { authMiddleware } = require('./utils/auth');
-const { NoFragmentCyclesRule } = require('graphql');
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,8 +19,12 @@ const server = new ApolloServer({
   context: authMiddleware
 });
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
 const startApolloServer = async(typeDefs, resolvers) => {
   await server.start();
@@ -31,11 +33,11 @@ const startApolloServer = async(typeDefs, resolvers) => {
 }
 
 // if we're in production, serve client/build as static assets
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'development') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-app.use(routes);
+
 
 db.once('open', () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
