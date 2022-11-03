@@ -117,7 +117,7 @@ const SignupForm = () => {
           Submit
         </Button>
       </Form>
-      {error && <div> Sign up failed. </div>}
+      {/* {error && <div> Sign up failed. </div>} */}
     </>
   );
 };

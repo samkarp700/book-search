@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 // getME query needed
 import { GET_ME } from '../utils/queries';
-import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 //removebook mutation needed
 import { REMOVE_BOOK } from '../utils/mutations';
@@ -17,7 +16,7 @@ const SavedBooks = () => {
 
 
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
+  // const userDataLength = Object.keys(userData).length;
 
   //no longer in use 
   // useEffect(() => {
@@ -94,7 +93,7 @@ const SavedBooks = () => {
                 <Card.Body>
                   <Card.Title>{book.title}</Card.Title>
                   <p className='small'>Authors: {book.authors}</p>
-                  <p className='small'><a href={book.link} target="_blank">Link to Google Books </a></p>
+                  <p className='small'><a href={book.link} target="_blank" rel="noreferrer">Link to Google Books </a></p>
                   <Card.Text>{book.description}</Card.Text>
                   <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(book.bookId)}>
                     Delete this Book!

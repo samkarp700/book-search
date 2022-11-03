@@ -101,7 +101,7 @@ const LoginForm = () => {
           Submit
         </Button>
       </Form>
-      {error && <div>Login failed</div>}
+      {/* {error && <div>Login failed</div>} */}
     </>
   );
 };
