@@ -56,28 +56,34 @@ const resolvers = {
 
             return { token, user };
         }, 
-        saveBook: async(parent, args, context) => {
+        saveBook: async(parent, { input }, context) => {
             if (context.user) {
-                const book = await Book.create({ ...args, username: context.user.username });
-
-                await User.findByIdAndUpdate(
-                    { _id: context.user._id }, 
-                    { $push: { books: book._id } },
-                    { new: true } 
+                const updateSaveBook = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { savedBooks: input } },
+                    { new: true, runValidators: true }
                 );
-                return book;
-            }
+                return updateSaveBook;
 
-            throw new AuthenticationError('You need to be logged in!');
-        }, 
+            }
+                throw new AuthenticationError('You need to be loggin in.');
+        },
 
         //need to finish this one
-        removeBook: async(parent, args, context) => {
+        removeBook: async(parent, { bookId }, context) => {
             if (context.user) {
-                const book = await Book.delete({ ...args, username: context.user.username });
-
-                await user.findByIdAndUpdate
+                const updateSaveBook = await User.findOneAndUpdate(
+                    { _id: context.user.id },
+                    { $pull: { savedBooks: { bookId } } },
+                    {new: true }
+                );
+                return updateSaveBook
+            }
+            throw new AuthenticationError('You need to be logged in');
+            
             }
         }
-    }
-};
+    };
+
+
+    module.exports = resolvers;
