@@ -17,6 +17,7 @@
     "concurrently": "^7.5.0"
   },
   "dependencies": {
-    "apollo-server-express": "^3.11.1"
+    "apollo-server-express": "^3.11.1",
+    "react-router-dom": "^5.2.0"
   }
 }
