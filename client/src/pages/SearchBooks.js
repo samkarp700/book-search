@@ -88,7 +88,7 @@ const SearchBooks = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }
 
   return (
     <>
