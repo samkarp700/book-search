@@ -10,3 +10,8 @@ This application was built using the MERN stack.
 - React.js
 - Node
 - Google Books API
+
+## Usage: 
+Please install this application by cloning this repository. Node.js is necessary to run this application, so please be sure you have it installed. 
+Run npm install in your terminal from the root directory. 
+Lastly, run npm run develop in your terminal and wait for the page to load. Time to search! 
